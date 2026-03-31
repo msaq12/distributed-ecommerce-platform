@@ -8,11 +8,8 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  - group: GitHub-Sync-Secrets
-  - name: nodeVersion
-    value: "20.x"
-  - name: artifactName
-    value: "admin-portal"
+  nodeVersion: "20.x"
+  artifactName: "admin-portal"
 
 stages:
   - stage: Build
@@ -60,22 +57,3 @@ stages:
               PathtoPublish: "$(Build.ArtifactStagingDirectory)"
               ArtifactName: "$(artifactName)"
               publishLocation: "Container"
-
-          # Sync source code to GitHub combined repo
-          - script: |
-              git config --global user.email "pipeline@devops.com"
-              git config --global user.name "Azure DevOps Pipeline"
-
-              git clone https://$(GITHUB_PAT)@github.com/msaq12/distributed-ecommerce-platform.git github-combined
-              cd github-combined
-
-              rm -rf admin-portal
-              mkdir admin-portal
-
-              rsync -av --exclude='.git' $(Build.SourcesDirectory)/ admin-portal/
-
-              git add .
-              git diff --cached --quiet || (git commit -m "Sync admin-portal from Azure DevOps - Build $(Build.BuildNumber)" && git push)
-            displayName: "Sync to GitHub combined repo"
-            env:
-              GITHUB_PAT: $(GITHUB_PAT)
