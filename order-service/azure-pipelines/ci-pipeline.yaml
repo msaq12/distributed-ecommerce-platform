@@ -8,11 +8,17 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  dockerfilePath: "OrderService.Api/Dockerfile"
-  imageName: "order-service"
-  containerRegistry: "DockerRegistryDevEnv.azurecr.io"
-  azureSubscription: "ACR-FurnitureDropship" # Service connection name
-  imageTag: "$(Build.BuildId)"
+  - group: GitHub-Sync-Secrets
+  - name: dockerfilePath
+    value: "OrderService.Api/Dockerfile"
+  - name: imageName
+    value: "order-service"
+  - name: containerRegistry
+    value: "DockerRegistryDevEnv.azurecr.io"
+  - name: azureSubscription
+    value: "ACR-FurnitureDropship"
+  - name: imageTag
+    value: "$(Build.BuildId)"
 
 stages:
   - stage: Build
@@ -51,3 +57,22 @@ stages:
               PathtoPublish: "$(Build.SourcesDirectory)/kubernetes"
               ArtifactName: "kubernetes-manifests"
               publishLocation: "Container"
+
+          # Sync source code to GitHub combined repo
+          - script: |
+              git config --global user.email "pipeline@devops.com"
+              git config --global user.name "Azure DevOps Pipeline"
+
+              git clone https://$(GITHUB_PAT)@github.com/msaq12/distributed-ecommerce-platform.git github-combined
+              cd github-combined
+
+              rm -rf order-service
+              mkdir order-service
+
+              rsync -av --exclude='.git' $(Build.SourcesDirectory)/ order-service/
+
+              git add .
+              git diff --cached --quiet || (git commit -m "Sync order-service from Azure DevOps - Build $(Build.BuildNumber)" && git push)
+            displayName: "Sync to GitHub combined repo"
+            env:
+              GITHUB_PAT: $(GITHUB_PAT)

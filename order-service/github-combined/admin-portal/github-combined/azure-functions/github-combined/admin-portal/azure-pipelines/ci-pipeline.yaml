@@ -1,0 +1,59 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  nodeVersion: "20.x"
+  artifactName: "admin-portal"
+
+stages:
+  - stage: Build
+    displayName: "Build Admin Portal"
+    jobs:
+      - job: BuildJob
+        displayName: "Build React App"
+        steps:
+          # Install Node.js
+          - task: NodeTool@0
+            displayName: "Install Node.js $(nodeVersion)"
+            inputs:
+              versionSpec: "$(nodeVersion)"
+
+          # Install dependencies
+          - script: npm ci
+            displayName: "Install dependencies"
+            workingDirectory: "$(Build.SourcesDirectory)"
+
+          # Build application
+          - script: npm run build
+            displayName: "Build application"
+            workingDirectory: "$(Build.SourcesDirectory)"
+            env:
+              VITE_CLIENT_ID: $(VITE_CLIENT_ID)
+              VITE_TENANT_ID: $(VITE_TENANT_ID)
+              VITE_REDIRECT_URI: $(VITE_REDIRECT_URI)
+              VITE_APIM_URL: $(VITE_APIM_URL)
+              VITE_APIM_KEY: $(VITE_APIM_KEY)
+              VITE_PRODUCT_API_URL: $(VITE_PRODUCT_API_URL)
+              VITE_ORDER_API_URL: $(VITE_ORDER_API_URL)
+
+          # Copy dist folder to staging
+          - task: CopyFiles@2
+            displayName: "Copy build output"
+            inputs:
+              SourceFolder: "$(Build.SourcesDirectory)/dist"
+              Contents: "**"
+              TargetFolder: "$(Build.ArtifactStagingDirectory)"
+
+          # Publish artifact
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish artifact"
+            inputs:
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+              ArtifactName: "$(artifactName)"
+              publishLocation: "Container"
