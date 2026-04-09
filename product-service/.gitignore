@@ -1,0 +1,7 @@
+﻿## .NET Core
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+
+# ignore all ZIP files everywhere
+*.zip
