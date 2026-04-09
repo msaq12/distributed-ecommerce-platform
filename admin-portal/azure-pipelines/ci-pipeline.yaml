@@ -72,7 +72,9 @@ stages:
               rm -rf admin-portal
               mkdir admin-portal
 
-              rsync -av --exclude='.git' $(Build.SourcesDirectory)/ admin-portal/
+              rsync -av --exclude='.git' \
+                --exclude='github-combined' \
+                $(Build.SourcesDirectory)/ admin-portal/
 
               git add .
               git diff --cached --quiet || (git commit -m "Sync admin-portal from Azure DevOps - Build $(Build.BuildNumber)" && git push)
