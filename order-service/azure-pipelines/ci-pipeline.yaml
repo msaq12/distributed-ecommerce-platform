@@ -63,7 +63,7 @@ stages:
               git config --global user.email "pipeline@devops.com"
               git config --global user.name "Azure DevOps Pipeline"
 
-              git clone https://$(GITHUB_PAT)@github.com/msaq12/distributed-ecommerce-platform.git github-combined
+              git clone https://$(GITHUB_PAT)@github.com/msaq12/azure-ecommerce-microservices.git github-combined
               cd github-combined
 
               rm -rf order-service
