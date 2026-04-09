@@ -28,6 +28,7 @@ steps:
       mkdir $(SERVICE_FOLDER)
 
       rsync -av --exclude='.git' \
+                --exclude='github-combined' \
                 --exclude='**/local.settings.json' \
                 --exclude='**/bin' \
                 --exclude='**/obj' \
