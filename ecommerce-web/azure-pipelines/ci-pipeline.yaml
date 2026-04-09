@@ -10,7 +10,7 @@ pool:
 variables:
   - group: GitHub-Sync-Secrets
   - name: GITHUB_REPO
-    value: "msaq12/distributed-ecommerce-platform"
+    value: "msaq12/azure-ecommerce-microservices"
   - name: SERVICE_FOLDER
     value: "ecommerce-web"
   - name: nodeVersion
