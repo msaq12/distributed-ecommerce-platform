@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "cache_invalidation_function": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7094",
+      "launchBrowser": false
+    }
+  }
+}
