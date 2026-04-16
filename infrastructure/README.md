@@ -8,7 +8,7 @@
 
 A **production-grade, cloud-native e-commerce platform** built on Microsoft Azure, demonstrating microservices architecture, containerization, CI/CD automation, and enterprise security.
 
-Built as a 28-day hands-on learning project targeting **AZ-204** and **AZ-400** certifications.
+Built as a hands-on learning project targeting **AZ-204** and **AZ-400** certifications.
 
 ---
 
