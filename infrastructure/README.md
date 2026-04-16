@@ -4,7 +4,7 @@
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 
-# Azure Furniture Dropshipping Platform
+# Azure E-commerce Microservices Platform
 
 A **production-grade, cloud-native e-commerce platform** built on Microsoft Azure, demonstrating microservices architecture, containerization, CI/CD automation, and enterprise security.
 
