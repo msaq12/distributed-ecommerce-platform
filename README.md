@@ -8,7 +8,7 @@
 
 A **production-grade, cloud-native e-commerce platform** built on Microsoft Azure, demonstrating microservices architecture, containerization, CI/CD automation, and enterprise security.
 
-Built as a 28-day hands-on learning project targeting **AZ-204** and **AZ-400** certifications.
+Built as a hands-on learning project targeting **AZ-204** and **AZ-400** certifications.
 
 ---
 
@@ -65,7 +65,7 @@ Azure App Service · Azure Kubernetes Service · Azure Container Registry · Azu
 
 ---
 
-## 📊 Performance Baseline (Day 26)
+## 📊 Performance Baseline 
 
 - **100 concurrent users**, 7-minute load test
 - **p95 response time**: < 2,000ms threshold
@@ -105,5 +105,5 @@ See [DEPLOYMENT-RUNBOOK.md](./docs/DEPLOYMENT-RUNBOOK.md) for full deployment gu
 
 ## Author
 
-Built as a structured 28-day Azure learning project.
+Built as a structured Azure learning project.
 **Skills demonstrated**: AZ-204, AZ-400, microservices, Kubernetes, DevSecOps, cloud-native architecture.
